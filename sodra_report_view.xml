@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!-- Sodra Report Module -->
+		<menuitem id = "sodra_report_menu" name ="Sodra Report" parent="hr.menu_hr_root"/>
+
+		<record id="sodra_report_tree" model="ir.ui.view">
+            <field name="name">sodra Tree View</field>
+            <field name="model">sodra.report</field>
+            <field name="arch" type="xml">
+				<tree string = "sodra Tree View">
+					<field name = "name"/>
+					<field name = "setting_id"/>
+					<field name = "sequence" readonly='1' />
+					<field name = "period_id" required='1' domain = "[('state','=','draft')]"/>
+					<field name = "field_1"/>
+					<field name = "field_2"/>
+				</tree>
+            </field>
+		</record>
+		<record id="view_sodra_report" model="ir.ui.view">
+            <field name="name">sodra View</field>
+            <field name="model">sodra.report</field>
+            <field name="arch" type="xml">
+			<form string = "sodra View" version = "7.0">
+					
+					<group>
+						<field name = "name"/>
+						<field name = "setting_id"/>
+						<field name = "date"/>
+						<field name = "sequence" readonly='1'/>
+						<field name = "period_id" required='1' domain = "[('state','=','draft')]"/>
+						</group>
+						<group>
+						<field name = "field_1" on_change="change_1(field_1,field_2)"/>
+						<field name = "field_2" on_change="change_2(field_1,field_2)"/>
+						<field name = "field_20_1"/>
+						<field name = "field_21_1"/>
+						</group>
+				</form>
+				</field>
+		</record>
+        <record id="action_sodra_view" model="ir.actions.act_window">
+            <field name="name">Action For sodra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sodra.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+	      <menuitem id = "sodra_report_child" name = "Sodra Report(3)" parent = "sodra_report_menu" action = "action_sodra_view" sequence='1'/>
+	    
+	    <!-- sodra report setting module -->
+
+		<record id="sodra_report_setting_tree" model="ir.ui.view">
+            <field name="name">sodra Tree View</field>
+            <field name="model">sodra.report.setting</field>
+            <field name="arch" type="xml">
+				<tree string = "sodra Tree View">
+					 <field name = "company_id"/>
+					<!--  <field name="company_registry"/> -->
+					
+				</tree>
+            </field>
+		</record>
+		<record id="view_sodra_report_setting" model="ir.ui.view">
+            <field name="name">sodra View</field>
+            <field name="model">sodra.report.setting</field>
+            <field name="arch" type="xml">
+				<form string = "sodra View" version="7.0">
+					<group>
+						<field name = "company_id"/>
+					 	<field name = "name" />
+						<field name="company_registry" />
+						<field name="sodra_no" />
+						<label for="street" string="Address"/>
+						<div>
+						<field name="street" />
+						<field name="street2" readonly='1'/>
+						<div>
+						 	<field name="city" readonly='1'/> 
+					 		<field name="state_id" readonly='1'/> 
+							<field name="zip" readonly='1'/>
+						</div>
+						</div>  
+						<field name = "field_8"/>
+						<field name="tarif_id"/>					
+					</group>
+				</form>
+            </field>
+		</record>
+        <record id="action_sodra_setting_view" model="ir.actions.act_window">
+            <field name="name">Action For sodra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sodra.report.setting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+	      <menuitem id = "sodra_report_setting_child" name = "Sodra Report Setting(3)" parent = "sodra_report_menu" action = "action_sodra_setting_view" sequence='3'/>
+	    
+	    <!-- add fields in company -->
+	    
+		<record id="view_inheritance_company" model="ir.ui.view">
+            <field name="name">add one field</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='company_registry']" position= "after">
+					<field name="sodra_no"/>
+				</xpath>
+				
+			</field>
+		</record>
+	    
+	    </data>
+	    </openerp>
+	    
+	    
+	    
+	    
+	    
