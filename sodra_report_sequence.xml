@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Sequences for sodra.report -->
+        <record id="seq_type_sodra" model="ir.sequence.type">
+            <field name="name">Sodra</field>
+            <field name="code">sodra.report2</field>
+            <!-- You can give any value in name and code -->
+        </record>
+
+        <record id="seq_sodra" model="ir.sequence">
+            <field name="name">Sodra Report</field>
+            <field name="code">sodra.report2</field>
+            <field name="prefix">SODRA</field>
+            <field name="padding">3</field>
+        </record>
+
+    </data>
+</openerp>

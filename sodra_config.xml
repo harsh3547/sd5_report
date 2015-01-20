@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="sodra_config_form" model="ir.ui.view">
+			<field name="name">sodra_config_view</field>
+			<field name="model">sodra.config</field>
+			<field name="arch" type="xml">
+				<form string="vat" version="7.0">
+				<h1>
+					<label string="Sodra Report settings"/>
+				</h1>
+					<notebook>
+					<page string="1-SD">
+					<group>
+							<field name="name" readonly="1"/>
+							<field name="sodra_no"/>
+							<field name="registry" readonly="1"/>
+							<field name="phone" readonly="1"/>
+							<field name="address" readonly="1"/>
+							<field name="p1" digits="(4,2)" placeholder="00.00" on_change="onchange_p3(p1,p2)"/>
+							<field name="p2" digits="(4,2)" placeholder="00.00" on_change="onchange_p3(p1,p2)"/>
+							<field name="p3" digits="(4,2)" placeholder="00.00"/>
+							<field name="k6"/>
+							<field name="f11"/>
+							<field name="f13"/>
+					</group>
+					</page>
+					<page string="2-SD">
+						<group>
+							<field name="name_2" readonly="1"/>
+							<field name="sodra_no_2"/>
+							<field name="registry_2" readonly="1"/>
+							<field name="phone_2" readonly="1"/>
+							<field name="address_2" readonly="1"/>
+							<field name="p1_2" digits="(4,2)" placeholder="00.00" on_change="onchange_p3_2(p1_2,p2_2)"/>
+							<field name="p2_2" digits="(4,2)" placeholder="00.00" on_change="onchange_p3_2(p1_2,p2_2)"/>
+							<field name="p3_2" digits="(4,2)" placeholder="00.00"/>
+							<field name="f11_2"/>
+							<field name="f13_2"/>
+						</group>
+					</page>
+					</notebook>
+				</form>
+			</field>
+		</record> 
+
+		<record id="sodra_config_tree" model="ir.ui.view">
+			<field name="name">sodra_config_trees</field>
+			<field name="model">sodra.config</field>
+			<field name="arch" type="xml">
+				<tree string="sodra">
+					<field name="name"/>
+					<field name="sodra_no"/>
+					<field name="registry"/>
+					<field name="phone"/>
+					<field name="address"/>
+					
+				</tree>
+			</field>
+		</record>
+		<record id="action_sodra_config" model="ir.actions.act_window">
+			<field name="name">Sodra Report Setting</field>
+			<field name="res_model">sodra.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem action="action_sodra_config" id="menu_action_sodra_config"
+		 name="Sodra Report Settings(1,2)" parent="sodra_report_menu" sequence="2"/>
+	</data>
+</openerp>

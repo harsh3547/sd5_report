@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="sodra_hr_view_form" model="ir.ui.view">
+			<field name="name">sodra_hr_view</field>
+			<field name="model">hr.contract</field>
+			<field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="/form/sheet/notebook/page[@string='Work Permit']" position='after'>
+						<page string='1-SD'>
+							<group>
+								<field name="a5" on_change="onchange_a5(a5)"/>
+								<field name="a6"/>
+								<label colspan="2" string="A7 - valstybės kodas; A8 - valstybė" attrs="{'invisible': [('a5','not in',('05','06'))]}"/>
+								<label colspan="2" string="A7 - teritorinės darbo biržos juridinio asmens kodas; A8 - teritorinė darbo birža" attrs="{'invisible': [('a5','not in','10')]}"/>
+								<label colspan="2" string="A7 - švietimo įstaigos juridinio asmens kodas; A8 - švietimo įstaiga" attrs="{'invisible': [('a5','not in','11')]}"/>
+								<field name="a7" on_change="onchange_a7(a7)"/>
+								<field name="a8"/>
+							</group>
+						</page>
+						<page string='2-SD'>
+							<group>
+								<field name="a5_2" on_change="onchange_a5_2(a5_2)"/>
+								<field name="a6_2"/>
+								<label colspan="2" string="A7 - valstybės kodas; A8 - valstybė" attrs="{'invisible': [('a5','not in',('05','06'))]}"/>
+								<label colspan="2" string="A7 - teritorinės darbo biržos juridinio asmens kodas; A8 - teritorinė darbo birža" attrs="{'invisible': [('a5','not in','10')]}"/>
+								<label colspan="2" string="A7 - švietimo įstaigos juridinio asmens kodas; A8 - švietimo įstaiga" attrs="{'invisible': [('a5','not in','11')]}"/>
+								<field name="a7_2" on_change="onchange_a7_2(a7_2)"/>
+								<field name="a8_2"/>
+								<field name="a30"/>
+								<field name="a31"/>
+								<field name="a32"/>
+								<field name="a33"/>
+								<field name="p5_2"/>
+								<field name="p6_2"/>
+								
+								
+							</group>
+						</page>
+					</xpath>
+				</data>
+			</field>
+		</record> 
+	</data>
+</openerp>
