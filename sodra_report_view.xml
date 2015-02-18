@@ -27,6 +27,8 @@
 					<group>
 						<field name = "name"/>
 						<field name = "setting_id"/>
+						<field name="user_id" />
+						<field name="employee_id" />
 						<field name = "date"/>
 						<field name = "sequence" readonly='1'/>
 						<field name = "period_id" required='1' domain = "[('state','=','draft')]"/>

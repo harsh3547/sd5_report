@@ -17,6 +17,8 @@ class sodra_report(osv.osv):
     _columns  = {
                  'name':fields.char(string="Name",size =50,required = True),
                  'setting_id':fields.many2one('sodra.report.setting','Company'),
+                 'user_id':fields.many2one("res.users","Users"),
+                 'employee_id':fields.many2one('hr.employee','Employee'),
                  'date':fields.date('Date'),
                  'sequence':fields.char('Sequence'),
                  'period_id':fields.many2one('account.period','Period'),
