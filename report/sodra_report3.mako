@@ -137,9 +137,13 @@ table {
 				<td
 					style="width: 13px;border: none;">${today[3]}</td>
 				<td
+					style="width: 13px;border: none;">-</td>
+				<td
 					style="width: 13px;border: none;">${today[4]}</td>
 				<td
 					style="width: 13px;border: none;">${today[5]}</td>
+				<td
+					style="width: 13px;border: none;">-</td>
 				<td
 					style="width: 13px;border: none;">${today[6]}</td>
 				<td
@@ -185,10 +189,13 @@ table {
 				<% set today=str(o.period_id.date_start or '') %>
 				
 				<td
-					style="width: 13px;border: none;">${today[6]}</td>
+					style="width: 13px;border: none;">${today[0]}</td>
 				<td
-					style="width: 13px;border: none;">${today[7]}</td>
-				
+					style="width: 13px;border: none;">${today[1]}</td>
+				<td
+					style="width: 13px;border: none;">${today[2]}</td>
+				<td
+					style="width: 13px;border: none;">${today[3]}</td>
 			</tr>
 		</table>
 		
@@ -198,14 +205,14 @@ table {
 			<tr>
 				<% set today=str(o.period_id.date_start or '') %>
 				<td
-					style="width: 13px;border: none;">${today[4]}</td>
-				<td
 					style="width: 13px;border: none;">${today[5]}</td>
+				<td
+					style="width: 13px;border: none;">${today[6]}</td>
 			</tr>
 		</table>
 		
 		<!-- field 1 -->
-		% if o.field_1:	
+			
 		<table
 			style="font-size: 11px; position: absolute; top: 332px; left: 913px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
@@ -215,7 +222,7 @@ table {
 			</tr>
 		</table>
 
-
+% if o.field_1:
 		<!-- if field_i is tick than current year -->
 		<table
 			style="font-size: 11px; position: absolute; top: 363px; left: 795px; text-align: center; vertical-align: center; border-collapse: collapse;">
@@ -223,9 +230,13 @@ table {
 				<% set today=str(o.period_id.date_start or '') %>
 				
 				<td
-					style="width: 13px;border: none;">${today[6]}</td>
+					style="width: 13px;border: none;">${today[0]}</td>
 				<td
-					style="width: 13px;border: none;">${today[7]}</td>
+					style="width: 13px;border: none;">${today[1]}</td>
+				<td
+					style="width: 13px;border: none;">${today[2]}</td>
+				<td
+					style="width: 13px;border: none;">${today[3]}</td>
 				
 			</tr>
 		</table>
@@ -247,11 +258,12 @@ table {
 			<tr>
 				<% set today=str(o.period_id.date_start or '') %>		
 				<td
-					style="width: 13px;border: none;">${today[4]}</td>
-				<td
 					style="width: 13px;border: none;">${today[5]}</td>
+				<td
+					style="width: 13px;border: none;">${today[6]}</td>
 			</tr>
 		</table>
+% endif 
 		<!-- field 20.1 -->
 		
 		<table
@@ -277,7 +289,7 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 469px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str((id(ids)) or '') %>
+				<% set name=str((hire_pages(o.period_id.id)) or '') %>
 				<% set length=len(name) %>
 
 				<% for i in range(length) if i<=4 %>
@@ -291,9 +303,9 @@ table {
 		<!-- 20.3 field   -->
 		
 		<table
-			style="font-size: 11px; position: absolute; top: 469px; left: 458px; text-align: center; vertical-align: center; border-collapse: collapse;">
+			style="font-size: 11px; position: absolute; top: 469px; left: 456px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=employee_id(ids) %>
+				<% set name=id_hire(o.period_id.id) %>
 				<% set length=len(name) %>
 				<% set lengths=str(length) %>
 				<% set lengt=len(lengths) %>
@@ -304,6 +316,58 @@ table {
 				
 			</tr>
 		</table>
+		
+		
+		<!-- 21.2 -->
+		<table
+			style="font-size: 11px; position: absolute; top: 503px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
+			<tr>
+				<% set name=str((fire_pages(o.period_id.id)) or '') %>
+				<% set length=len(name) %>
+
+				<% for i in range(length) if i<=4 %>
+				<td
+					style="width: 13px;border: none;">${name[i]}</td>
+				<% endfor %>
+				
+			</tr>
+		</table>
+		
+		<!-- 21.3 field   -->
+		
+		<table
+			style="font-size: 11px; position: absolute; top: 503px; left: 456px; text-align: center; vertical-align: center; border-collapse: collapse;">
+			<tr>
+				<% set name=id_fire(o.period_id.id) %>
+				<% set length=len(name) %>
+				<% set lengths=str(length) %>
+				<% set lengt=len(lengths) %>
+				<% for i in range(lengt) if i<=5 %>
+				<td
+					style="width: 13px;border: none;">${lengths[i]}</td>
+				<% endfor %>
+				
+			</tr>
+		</table>
+		
+		
+		<!-- 21.2 -->
+		<table
+			style="font-size: 11px; position: absolute; top: 538px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
+			<tr>
+				<% set fire_page=str((fire_pages(o.period_id.id)) or '') %>
+				<% set hire_page=str((hire_pages(o.period_id.id)) or '') %>
+				<% set sum=str(int(fire_page)+int(hire_page))%>
+				<% set length=len(sum) %>
+
+				<% for i in range(int(sum)) if i<=4 %>
+				<td
+					style="width: 13px;border: none;">${sum[i]}</td>
+				<% endfor %>
+				
+			</tr>
+		</table>
+		
 		
 		<!-- field 11 -->
 		<table
@@ -342,11 +406,10 @@ table {
 
 
 </div>
-%endif
 
 % if o.field_1:
 <% set employee=0 %>
-<%for page in range(id(ids)) if page < id(ids) %>
+<%for page in range(hire_pages(o.period_id.id)) if page < hire_pages(o.period_id.id) %>
 
 <div
 		style="width: 297mm; height: 209mm; position: relative; top: 0px; left: -9px; font-family: Arial;page-break-before:always">
@@ -436,7 +499,7 @@ table {
 				<% set p=0 %>	
 			<table
 					 style="font-size: 11px; position: absolute; top:188px; left:60px; text-align: center; vertical-align: center; border-collapse: collapse;">
-				<%for i in range(employee,len(employee_id(ids))) if p<=2 %>
+				<%for i in range(employee,len(id_hire(o.period_id.id) or '')) if p<=2 %>
 					<% set p=p+1 %>
 					<tr style="height:50px;border: none;">
 						<% set k=0 %>
@@ -451,7 +514,7 @@ table {
 			</table>	
 			<table
 					 style="font-size: 11px; position: absolute; top:347px; left:60px; text-align: center; vertical-align: center; border-collapse: collapse;">
-				<%for i in range((employee+3),len(employee_id(ids))) if p<=5 %>
+				<%for i in range((employee+3),len(id_hire(o.period_id.id) or '')) if p<=5 %>
 					<% set p=p+2 %>
 					<tr style="height:50px;border: none;">
 						<% set k=0 %>
@@ -467,7 +530,7 @@ table {
 			
 			<table
 					 style="font-size: 11px; position: absolute; top:505px; left:60px; text-align: center; vertical-align: center; border-collapse: collapse;">
-				<%for i in range((employee+6),len(employee_id(ids))) if p<=8 %>
+				<%for i in range((employee+6),len(id_hire(o.period_id.id) or '')) if p<=8 %>
 					<% set p=p+4 %>
 					<tr style="height:50px;border: none;">
 						<% set k=0 %>
@@ -487,13 +550,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 188px; left: 158px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_hire((o.period_id.id) or '') %>
 				<% set name=name[0]%>
 				<%for i in range(employee,len(name)) if m<=2 %>
 					<% set m=m+1 %>
 					<tr style="height:50px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_hire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[0][i] if k<=10 %>
 							<td
@@ -508,13 +571,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 347px; left: 158px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_hire((o.period_id.id) or '') %>
 				<% set name=name[0]%>
 				<%for i in range((employee+3),len(name)) if m<=5 %>
 					<% set m=m+2 %>
 					<tr style="height:50px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_hire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[0][i] if k<=10 %>
 							<td
@@ -529,13 +592,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 505px; left: 158px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_hire((o.period_id.id) or '') %>
 				<% set name=name[0]%>
 				<%for i in range((employee+6),len(name)) if m<=8 %>
 					<% set m=m+4 %>
 					<tr style="height:50px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_hire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[0][i] if k<=10 %>
 							<td
@@ -552,13 +615,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 188px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_hire((o.period_id.id) or '') %>
 				<% set name=name[1]%>
 				<%for i in range(employee,len(name)) if n<=2 %>
 					<% set n=n+1 %>
 					<tr style="height:50px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_hire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[1][i] if k<=8 %>
 							<td
@@ -575,13 +638,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 347px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_hire((o.period_id.id) or '') %>
 				<% set name=name[1]%>
 				<%for i in range((employee+3),len(name)) if n<=5 %>
 					<% set n=n+2 %>
 					<tr style="height:50px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_hire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[1][i] if k<=8 %>
 							<td
@@ -598,13 +661,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 505px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_hire((o.period_id.id) or '') %>
 				<% set name=name[1]%>
 				<%for i in range((employee+6),len(name)) if n<=8 %>
 					<% set n=n+4 %>
 					<tr style="height:50px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_hire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[1][i] if k<=8 %>
 							<td
@@ -628,7 +691,7 @@ table {
 
 
 <% set employee=0 %>
-<%for page in range(SDP_id(ids)) if page < SDP_id(ids) %>
+<%for page in range(fire_pages(o.period_id.id)) if page < fire_pages(o.period_id.id) %>
 
 <div
 		style="width: 297mm; height: 209mm; position: relative; top: 0px; left: -9px; font-family: Arial;page-break-before:always">
@@ -683,7 +746,7 @@ table {
 			<% set p=0 %>	
 			<table
 					 style="font-size: 11px; position: absolute; top:170px; left:60px; text-align: center; vertical-align: center; border-collapse: collapse;">
-				<%for i in range(employee,len(employee_id(ids))) if p<=1 %>
+				<%for i in range(employee,len(id_fire(o.period_id.id) or '')) if p<=1 %>
 					<% set p=p+1 %>
 					<tr style="height:112px;border: none;">
 						<% set k=0 %>
@@ -699,7 +762,7 @@ table {
 			
 			<table
 					 style="font-size: 11px; position: absolute; top:395px; left:60px; text-align: center; vertical-align: center; border-collapse: collapse;">
-				<%for i in range((employee+2),len(employee_id(ids))) if p<=3 %>
+				<%for i in range((employee+2),len(id_fire(o.period_id.id) or '')) if p<=3 %>
 					<% set p=p+2 %>
 					<tr style="height:112px;border: none;">
 						<% set k=0 %>
@@ -720,13 +783,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top: 170px; left: 158px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_fire((o.period_id.id) or '') %>
 				<% set name=name[0]%>
 				<%for i in range(employee,len(name)) if m<=1 %>
 					<% set m=m+1 %>
 					<tr style="height:112px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_fire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[0][i] if k<=10 %>
 							<td
@@ -740,13 +803,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top:395px; left: 158px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_fire((o.period_id.id) or '') %>
 				<% set name=name[0]%>
 				<%for i in range((employee+2),len(name)) if m<=3 %>
 					<% set m=m+2 %>
 					<tr style="height:112px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_fire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[0][i] if k<=10 %>
 							<td
@@ -763,13 +826,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top:170px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_fire((o.period_id.id) or '') %>
 				<% set name=name[1]%>
 				<%for i in range(employee,len(name)) if n<=1 %>
 					<% set n=n+1 %>
 					<tr style="height:112px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_fire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[1][i] if k<=8 %>
 							<td
@@ -786,13 +849,13 @@ table {
 			<table
 				style="font-size: 11px; position: absolute; top:395px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 				<% set name=[] %>
-				<% set name=employee_data((identification) or '') %>
+				<% set name=employee_fire((o.period_id.id) or '') %>
 				<% set name=name[1]%>
 				<%for i in range((employee+2),len(name)) if n<=3 %>
 					<% set n=n+2 %>
 					<tr style="height:112px;border: none;">
 						<% set name=[] %>
-						<% set name=employee_data((identification) or '') %>
+						<% set name=employee_fire((o.period_id.id) or '') %>
 						<% set k=0 %>
 						<%for j in name[1][i] if k<=8 %>
 							<td

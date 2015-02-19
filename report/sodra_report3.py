@@ -11,18 +11,21 @@ class sd5_3_report(report_sxw.rml_parse):
         super(sd5_3_report, self).__init__(cr, uid, name, context=context)
         print context
         self.localcontext.update({'id':context.get('active_id'),
-                                  'today':time.strftime("%m-%d-%y"),
+                                  'today':time.strftime("%Y%m%d"),
                                   'date':time.strftime("%Y%m%d"),
                                   'len':self._len,
+                                  'int':self._int,
                                   'strings':self._strings,
                                   'cr':cr,
                                   'uid': uid,
                                   'get_user_address':self.get_user_address,
                                   'quarter':self.quarter,
-                                  'employee_data':self.employee_data,
-                                  'employee_id':self. employee_id,
-                                  'id':self.id,
-                                  'SDP_id':self.SDP_id
+                                  'employee_hire':self.employee_hire,
+                                  'employee_fire':self.employee_fire,
+                                  'id_hire':self.id_hire,
+                                  'id_fire':self.id_fire,
+                                  'hire_pages':self.hire_pages,
+                                  'fire_pages':self.fire_pages,
                                   })
     def get_user_address(self,id):
         cr=self.cr
@@ -37,10 +40,14 @@ class sd5_3_report(report_sxw.rml_parse):
     def _len(self,string):
         return len(string)
     
+    def _int(self,string):
+        return int(string)
+    
+    
     def _strings(self,string):
         return str(string)
     
-    def employee_data(self,ids):
+    '''def employee_datas(self,ids):
         cr=self.cr
         uid=self.uid
         obj=self.pool.get('hr.employee')
@@ -55,44 +62,159 @@ class sd5_3_report(report_sxw.rml_parse):
             otherid.append(other)
             identifications.append(identification)
         datas=[identifications,otherid]
+        return datas'''
+    
+    def employee_hire(self,ids):
+        print "----------------ids",ids
+        cr=self.cr
+        uid=self.uid
+        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
+        sodra_date_start=object_sodra.date_start
+        sodra_date_stop=object_sodra.date_stop
+        print"========================sodra_date_start",sodra_date_start
+        print"========================sodra_date_stop",sodra_date_stop
+        object_contract=self.pool.get("hr.contract")
+        id=object_contract.search(cr,uid,[('date_start', '>=', sodra_date_start),('date_start','<=',sodra_date_stop)],context=None)
+        object_employee=self.pool.get('hr.employee')
+        employee_id=[]
+        identifications=[]
+        otherid=[]
+        datas=[]
+        for i in id:
+            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+            employee_ids=object_contract_browse.id
+            employee_id.append(employee_ids)
+        for j in employee_id:
+            object_employee_browse=object_employee.browse(cr,uid,j)
+            identification=object_employee_browse.identification_id
+            other=object_employee_browse.otherid
+            if other: 
+                otherid.append(other)
+            if identification:
+                identifications.append(identification)
+        datas=[identifications,otherid]
         return datas
     
-                
-             
     
-    
-    
-    def employee_id(self,ids):
+    def id_hire(self,ids):
         cr=self.cr
         uid=self.uid
-        obj=self.pool.get('hr.employee')
-        id=obj.search(cr,uid,[],context=None)
-        return id
+        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
+        sodra_date_start=object_sodra.date_start
+        sodra_date_stop=object_sodra.date_stop
+        print"========================sodra_date_start",sodra_date_start
+        print"========================sodra_date_stop",sodra_date_stop
+        object_contract=self.pool.get("hr.contract")
+        id=object_contract.search(cr,uid,[('date_start', '>=', sodra_date_start),('date_start','<=',sodra_date_stop)],context=None)
+        print"----------------------------",id
+        object_employee=self.pool.get('hr.employee')
+        employee_id=[]
+        for i in id:
+            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+            employee_ids=object_contract_browse.id
+            print"-----------------------------employee_ids",employee_ids
+            print"----------------------------iiiiiiiii",i
+            employee_id.append(employee_ids)
+        print"-----------------------------",employee_id
+        return employee_id 
     
-    def id(self,ids):
+    
+    def hire_pages(self,ids):
         cr=self.cr
         uid=self.uid
-        obj=self.pool.get('hr.employee')
-        id=obj.search(cr,uid,[],context=None)
-        idlen=len(id)/9
-        idrem=len(id)%9
+        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
+        sodra_date_start=object_sodra.date_start
+        sodra_date_stop=object_sodra.date_stop
+        print"========================sodra_date_start",sodra_date_start
+        print"========================sodra_date_stop",sodra_date_stop
+        object_contract=self.pool.get("hr.contract")
+        id=object_contract.search(cr,uid,[('date_start', '>=', sodra_date_start),('date_start','<=',sodra_date_stop)],context=None)
+        object_employee=self.pool.get('hr.employee')
+        employee_id=[]
+        for i in id:
+            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+            employee_ids=object_contract_browse.id
+            employee_id.append(employee_ids)
+        idlen=len(employee_id)/9
+        idrem=len(employee_id)%9
         if idrem > 0:
             idlen=idlen+1
         return idlen
     
-    def SDP_id(self,ids):
+    
+    def employee_fire(self,ids):
         cr=self.cr
         uid=self.uid
-        obj=self.pool.get('hr.employee')
-        id=obj.search(cr,uid,[],context=None)
-        idlen=len(id)/4
-        idrem=len(id)%4
+        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
+        sodra_date_start=object_sodra.date_start
+        sodra_date_stop=object_sodra.date_stop
+        print"========================sodra_date_start",sodra_date_start
+        print"========================sodra_date_stop",sodra_date_stop
+        object_contract=self.pool.get("hr.contract")
+        id=object_contract.search(cr,uid,[('date_end','>=', sodra_date_start),('date_end','<=',sodra_date_stop)],context=None)
+        object_employee=self.pool.get('hr.employee')
+        employee_id=[]
+        identifications=[]
+        otherid=[]
+        datas=[]
+        for i in id:
+            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+            employee_ids=object_contract_browse.id
+            employee_id.append(employee_ids)
+        for j in employee_id:
+            object_employee_browse=object_employee.browse(cr,uid,j)
+            identification=object_employee_browse.identification_id
+            other=object_employee_browse.otherid
+            if other: 
+                otherid.append(other)
+            if identification:
+                identifications.append(identification)
+        datas=[identifications,otherid]
+        return datas
+    
+    def id_fire(self,ids):
+        cr=self.cr
+        uid=self.uid
+        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
+        sodra_date_start=object_sodra.date_start
+        sodra_date_stop=object_sodra.date_stop
+        print"========================sodra_date_start",sodra_date_start
+        print"========================sodra_date_stop",sodra_date_stop
+        object_contract=self.pool.get("hr.contract")
+        id=object_contract.search(cr,uid,[('date_end','>=', sodra_date_start),('date_end','<=',sodra_date_stop)],context=None)
+        object_employee=self.pool.get('hr.employee')
+        employee_id=[]
+        for i in id:
+            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+            employee_ids=object_contract_browse.id
+            employee_id.append(employee_ids)
+        return employee_id
+    
+    def fire_pages(self,ids):
+        cr=self.cr
+        uid=self.uid
+        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
+        sodra_date_start=object_sodra.date_start
+        sodra_date_stop=object_sodra.date_stop
+        print"========================sodra_date_start",sodra_date_start
+        print"========================sodra_date_stop",sodra_date_stop
+        object_contract=self.pool.get("hr.contract")
+        id=object_contract.search(cr,uid,[('date_end','>=', sodra_date_start),('date_end','<=',sodra_date_stop)],context=None)
+        object_employee=self.pool.get('hr.employee')
+        employee_id=[]
+        for i in id:
+            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+            employee_ids=object_contract_browse.id
+            employee_id.append(employee_ids)
+        idlen=len(employee_id)/4
+        idrem=len(employee_id)%4
         if idrem > 0:
             idlen=idlen+1
         return idlen
+    
         
-    
     def quarter(self,id):
+        print "--------------id",id
         cr=self.cr
         uid=self.uid
         obj=self.pool.get('account.period').browse(cr,uid,id)
@@ -115,6 +237,39 @@ class sd5_3_report(report_sxw.rml_parse):
             q=4    
         print q
         return q
+                
+    
+    '''def employee_id(self,ids):
+        cr=self.cr
+        uid=self.uid
+        obj=self.pool.get('hr.employee')
+        id=obj.search(cr,uid,[],context=None)
+        return id'''
+    
+'''  def id(self,ids):
+        cr=self.cr
+        uid=self.uid
+        obj=self.pool.get('hr.employee')
+        id=obj.search(cr,uid,[],context=None)
+        idlen=len(id)/9
+        idrem=len(id)%9
+        if idrem > 0:
+            idlen=idlen+1
+        return idlen
+    
+    def SDP_id(self,ids):
+        cr=self.cr
+        uid=self.uid
+        obj=self.pool.get('hr.employee')
+        id=obj.search(cr,uid,[],context=None)
+        idlen=len(id)/4
+        idrem=len(id)%4
+        if idrem > 0:
+            idlen=idlen+1
+        return idlen'''
+        
+    
+   
     
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
