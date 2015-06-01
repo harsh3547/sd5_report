@@ -355,10 +355,9 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 538px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set fire_page=str((fire_pages(o.period_id.id)) or '') %>
-				<% set hire_page=str((hire_pages(o.period_id.id)) or '') %>
+				<% set fire_page=str((fire_pages(o.period_id.id)) or '0') %>
+				<% set hire_page=str((hire_pages(o.period_id.id)) or '0') %>
 				<% set sum=str(int(fire_page)+int(hire_page))%>
-				<% set length=len(sum) %>
 
 				<% for i in range(int(sum)) if i<=4 %>
 				<td

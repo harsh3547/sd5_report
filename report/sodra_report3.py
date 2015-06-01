@@ -41,6 +41,7 @@ class sd5_3_report(report_sxw.rml_parse):
         return len(string)
     
     def _int(self,string):
+        print "-------------string===",string
         return int(string)
     
     
@@ -93,29 +94,33 @@ class sd5_3_report(report_sxw.rml_parse):
             if identification:
                 identifications.append(identification)
         datas=[identifications,otherid]
+        print "--------------datas",datas
         return datas
     
     
     def id_hire(self,ids):
         cr=self.cr
         uid=self.uid
-        object_sodra=self.pool.get("account.period").browse(cr,uid,ids)
-        sodra_date_start=object_sodra.date_start
-        sodra_date_stop=object_sodra.date_stop
-        print"========================sodra_date_start",sodra_date_start
-        print"========================sodra_date_stop",sodra_date_stop
-        object_contract=self.pool.get("hr.contract")
-        id=object_contract.search(cr,uid,[('date_start', '>=', sodra_date_start),('date_start','<=',sodra_date_stop)],context=None)
-        print"----------------------------",id
-        object_employee=self.pool.get('hr.employee')
         employee_id=[]
-        for i in id:
-            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
-            employee_ids=object_contract_browse.id
-            print"-----------------------------employee_ids",employee_ids
-            print"----------------------------iiiiiiiii",i
-            employee_id.append(employee_ids)
-        print"-----------------------------",employee_id
+        print "----------------ids---",ids
+        object_sodra_ids=self.pool.get("account.period").browse(cr,uid,ids)
+        for object_sodra in object_sodra_ids:
+            sodra_date_start=object_sodra.date_start
+            sodra_date_stop=object_sodra.date_stop
+            print"========================sodra_date_start",sodra_date_start
+            print"========================sodra_date_stop",sodra_date_stop
+            object_contract=self.pool.get("hr.contract")
+            id=object_contract.search(cr,uid,[('date_start', '>=', sodra_date_start),('date_start','<=',sodra_date_stop)],context=None)
+            print"----------------------------",id
+            object_employee=self.pool.get('hr.employee')
+            
+            for i in id:
+                object_contract_browse=object_contract.browse(cr,uid,i).employee_id
+                employee_ids=object_contract_browse.id
+                print"-----------------------------employee_ids",employee_ids
+                print"----------------------------iiiiiiiii",i
+                employee_id.append(employee_ids)
+            print"-----------------------------",employee_id
         return employee_id 
     
     
@@ -139,6 +144,7 @@ class sd5_3_report(report_sxw.rml_parse):
         idrem=len(employee_id)%9
         if idrem > 0:
             idlen=idlen+1
+        print "000000000000000   idlen",idlen,type(idlen)
         return idlen
     
     
@@ -210,6 +216,7 @@ class sd5_3_report(report_sxw.rml_parse):
         idrem=len(employee_id)%4
         if idrem > 0:
             idlen=idlen+1
+        print "000000000000000   idlen",idlen,type(idlen)
         return idlen
     
         
