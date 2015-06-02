@@ -27,7 +27,7 @@
  'author': 'Intellerist',
  'website': 'http://www.intellerist.com',
  'depends': ['base', 'report_webkit','hr_contract'],
- 'data': ['report/sd5_report.xml','sodra_report_view.xml','sodra_config.xml','sodra_hr_view.xml','report/report_2_sd.xml','sodra_report_sequence.xml','report/sodra_report3.xml',],
+ 'data': ['report/sd5_report.xml','sodra_report_view.xml','sodra_config.xml','sodra_hr_view.xml','report/report_2_sd.xml','sodra_report_sequence.xml','report/sodra_report3.xml','security/ir.model.access.csv'],
  'demo_xml': [],
  'test': [],
  'installable': True,

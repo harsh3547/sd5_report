@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sodra_config,access_sodra_config,model_sodra_config,,1,1,1,1
+access_sodra_report,access_sodra_report,model_sodra_report,,1,1,1,1
+access_sodra_report_setting,access_sodra_report_setting,model_sodra_report_setting,,1,1,1,1
