@@ -170,20 +170,21 @@ class sd5_3_report(report_sxw.rml_parse):
         employee_id=[]
         identifications=[]
         otherid=[]
+        name=[]
         datas=[]
+        start_date=[]
+        fire_date=[]
         for i in id:
-            object_contract_browse=object_contract.browse(cr,uid,i).employee_id
-            employee_ids=object_contract_browse.id
-            employee_id.append(employee_ids)
-        for j in employee_id:
-            object_employee_browse=object_employee.browse(cr,uid,j)
-            identification=object_employee_browse.identification_id
-            other=object_employee_browse.otherid
-            if other: 
-                otherid.append(other)
-            if identification:
-                identifications.append(identification)
-        datas=[identifications,otherid]
+            object_contract_browse=object_contract.browse(cr,uid,i)
+            employee_ids=object_contract_browse.employee_id.id
+            object_employee_browse=object_employee.browse(cr,uid,employee_ids)
+            
+            start_date.append(object_contract_browse.date_start or '')
+            fire_date.append(object_contract_browse.date_end or '')
+            name.append(object_employee_browse.name or '')
+            otherid.append(object_employee_browse.otherid or '')
+            identifications.append(object_employee_browse.identification_id or '')
+        datas=[identifications,otherid,name,start_date,fire_date]
         return datas
     
     def id_fire(self,ids):
@@ -241,7 +242,7 @@ class sd5_3_report(report_sxw.rml_parse):
         print date
         print type(date)
         date=int(date)
-        i=date / 3
+        i=date / 3.0
         if i<=1:
             q=1
         elif(i>1 and i<=2):
