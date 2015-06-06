@@ -87,6 +87,7 @@ class sd5_3_report(report_sxw.rml_parse):
         identifications=[]
         otherid=[]
         datas=[]
+        name=[]
         for i in id:
             object_contract_browse=object_contract.browse(cr,uid,i).employee_id
             employee_ids=object_contract_browse.id
@@ -95,11 +96,12 @@ class sd5_3_report(report_sxw.rml_parse):
             object_employee_browse=object_employee.browse(cr,uid,j)
             identification=object_employee_browse.identification_id
             other=object_employee_browse.otherid
-            if other: 
-                otherid.append(other)
-            if identification:
-                identifications.append(identification)
-        datas=[identifications,otherid]
+            name.append(object_employee_browse.name or ' ')
+            if other:otherid.append(other)
+            else:otherid.append(' ')
+            if identification:identifications.append(identification)
+            else:identifications.append(' ')
+        datas=[identifications,otherid,name]
         print "--------------datas",datas
         return datas
     
@@ -126,7 +128,7 @@ class sd5_3_report(report_sxw.rml_parse):
                 print"-----------------------------employee_ids",employee_ids
                 print"----------------------------iiiiiiiii",i
                 employee_id.append(employee_ids)
-            print"-----------------------------",employee_id
+            print"--------------------------employee_id---",employee_id
         return employee_id 
     
     
