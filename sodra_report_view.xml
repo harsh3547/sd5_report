@@ -14,7 +14,6 @@
 					<field name = "sequence" readonly='1' />
 					<field name = "period_id" required='1' domain = "[('state','=','draft')]"/>
 					<field name = "field_1"/>
-					<field name = "field_2"/>
 				</tree>
             </field>
 		</record>
@@ -28,14 +27,13 @@
 						<field name = "name"/>
 						<field name = "setting_id"/>
 						<field name="user_id" />
-						<field name="employee_id" />
 						<field name = "date"/>
 						<field name = "sequence" readonly='1'/>
 						<field name = "period_id" required='1' domain = "[('state','=','draft')]"/>
 						</group>
 						<group>
-						<field name = "field_1" on_change="change_1(field_1,field_2)"/>
-						<field name = "field_2" on_change="change_2(field_1,field_2)"/>
+						
+						<field name = "field_1"/>
 						<field name = "field_20_1"/>
 						<field name = "field_21_1"/>
 						</group>
@@ -76,7 +74,7 @@
 						<field name="sodra_no" />
 						<label for="street" string="Address"/>
 						<div>
-						<field name="street" />
+						<field name="street" readonly='1'/>
 						<field name="street2" readonly='1'/>
 						<div>
 						 	<field name="city" readonly='1'/> 

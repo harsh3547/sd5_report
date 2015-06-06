@@ -18,29 +18,14 @@ class sodra_report(osv.osv):
                  'name':fields.char(string="Name",size =50,required = True),
                  'setting_id':fields.many2one('sodra.report.setting','Company'),
                  'user_id':fields.many2one("res.users","Users"),
-                 'employee_id':fields.many2one('hr.employee','Employee'),
                  'date':fields.date('Date'),
                  'sequence':fields.char('Sequence'),
                  'period_id':fields.many2one('account.period','Period'),
-                 'field_1':fields.boolean('Pirminė'),
-                 'field_2':fields.boolean('Patikslinta'),
+                 'field_1':fields.boolean('Patikslintas pranešimas'),
                  'field_20_1':fields.boolean('priedas SAM3SD(P20.1)'),
                  'field_21_1':fields.boolean('priedas SAM3SDP(P21.1)'),
                  }
-    def change_1(self,cr,uid,id,field_1,field_2,context=None):
-        value = {}
-        if field_1 == True:
-            value = {'field_2':False}
-        return {'value':value}
-        
     
-    def change_2(self,cr,uid,id,field_1,field_2,context=None):
-        value = {}
-        if field_2 == True:
-            value = {'field_1':False}
-        return {'value':value}
-    
-
 class sodra_report_setting(osv.osv):
     _name = 'sodra.report.setting'
     _description = "sodra report"
