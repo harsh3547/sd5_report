@@ -137,13 +137,13 @@ table {
 				<td
 					style="width: 13px;border: none;">${today[3]}</td>
 				<td
-					style="width: 13px;border: none;">-</td>
+					style="width: 13px;border: none;"></td>
 				<td
 					style="width: 13px;border: none;">${today[4]}</td>
 				<td
 					style="width: 13px;border: none;">${today[5]}</td>
 				<td
-					style="width: 13px;border: none;">-</td>
+					style="width: 13px;border: none;"></td>
 				<td
 					style="width: 13px;border: none;">${today[6]}</td>
 				<td
@@ -171,7 +171,7 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 329px; left: 232px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str(o.setting_id.tarif_id or '') %>
+				<% set name=str(tarif(o.setting_id.tarif_id)) %>
 				<% set length=len(name) %>
 
 				<% for i in range(length) if i<=4 %>
@@ -212,17 +212,16 @@ table {
 		</table>
 		
 		<!-- field 1 -->
-			
+% if o.field_1:			
 		<table
 			style="font-size: 11px; position: absolute; top: 332px; left: 913px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str(o.field_1 or '') %>
 				<td
 					style="font-size: 15px; position: absolute; top: -1.3mm; left: 0.0mm;">&#x2713</td>
 			</tr>
 		</table>
 
-% if o.field_1:
+
 		<!-- if field_i is tick than current year -->
 		<table
 			style="font-size: 11px; position: absolute; top: 363px; left: 795px; text-align: center; vertical-align: center; border-collapse: collapse;">
@@ -269,9 +268,10 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 469px; left: 177px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str(o.field_20_1 or '') %>
+				% if o.field_20_1:
 				<td
 					style="font-size: 15px; position: absolute; top: -1.3mm; left: 0.0mm;">&#x2713</td>
+				% endif
 			</tr>
 		</table>
 		<!-- field 21.1 -->
@@ -279,9 +279,10 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 504px; left: 177px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str(o.field_21_1 or '') %>
+				% if o.field_21_1:
 				<td
 					style="font-size: 15px; position: absolute; top: -1.3mm; left: 0.0mm;">&#x2713</td>
+				% endif
 			</tr>
 		</table>
 		
@@ -289,7 +290,7 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 469px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str((hire_pages(o.period_id.id)) or '') %>
+				<% set name=str(hire_pages(o.period_id.id) or '') %>
 				<% set length=len(name) %>
 
 				<% for i in range(length) if i<=4 %>
@@ -322,7 +323,7 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 503px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set name=str((fire_pages(o.period_id.id)) or '') %>
+				<% set name=str(fire_pages(o.period_id.id) or '') %>
 				<% set length=len(name) %>
 
 				<% for i in range(length) if i<=4 %>
@@ -355,11 +356,9 @@ table {
 		<table
 			style="font-size: 11px; position: absolute; top: 538px; left: 350px; text-align: center; vertical-align: center; border-collapse: collapse;">
 			<tr>
-				<% set fire_page=str((fire_pages(o.period_id.id)) or '0') %>
-				<% set hire_page=str((hire_pages(o.period_id.id)) or '0') %>
-				<% set sum=str(int(fire_page)+int(hire_page))%>
+				<% set sum=str((fire_pages(o.period_id.id) or 0) + (hire_pages(o.period_id.id) or 0)) %>
 
-				<% for i in range(int(sum)) if i<=4 %>
+				<% for i in range(len(sum)) if i<=4 %>
 				<td
 					style="width: 13px;border: none;">${sum[i]}</td>
 				<% endfor %>
@@ -406,8 +405,9 @@ table {
 
 </div>
 
-% if o.field_1:
+% if o.field_20_1:
 <% set employee=0 %>
+<% set page_no=1 %>
 <%for page in range(hire_pages(o.period_id.id)) if page < hire_pages(o.period_id.id) %>
 
 <div
