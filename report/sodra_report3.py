@@ -26,7 +26,13 @@ class sd5_3_report(report_sxw.rml_parse):
                                   'id_fire':self.id_fire,
                                   'hire_pages':self.hire_pages,
                                   'fire_pages':self.fire_pages,
+                                  'tarif':self._tarif,
                                   })
+    def _tarif(self,num):
+        num=round(num,2)
+        if num<10.0:return '0'+str(num)
+        else:return num    
+    
     def get_user_address(self,id):
         cr=self.cr
         uid=self.uid
