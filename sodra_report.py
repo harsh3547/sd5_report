@@ -24,6 +24,7 @@ class sodra_report(osv.osv):
                  'field_1':fields.boolean('Patikslintas pranešimas'),
                  'field_20_1':fields.boolean('priedas SAM3SD(P20.1)'),
                  'field_21_1':fields.boolean('priedas SAM3SDP(P21.1)'),
+
                  }
     
 class sodra_report_setting(osv.osv):
@@ -47,6 +48,8 @@ class sodra_report_setting(osv.osv):
                  'zip':fields.related('company_id','zip',type='char', string="zip"),
                  'field_8':fields.text(string='Adresatas',size=68),
                  'tarif_id':fields.float('Tarif'),
+                 'field_A11':fields.many2many('hr.salary.rule', 'hr_sodra_one_salary_rule_rel','setting_id','rule_id',string='field A11'),
+                 'field_A12':fields.many2many('hr.salary.rule', 'hr_sodra_two_salary_rule_rel','setting_id','rule_id',string='field A12'),
                  }
     
 class res_company(osv.osv):

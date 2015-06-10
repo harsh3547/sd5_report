@@ -70,8 +70,8 @@
 					<group>
 						<field name = "company_id"/>
 					 	<field name = "name" />
-						<field name="company_registry" />
-						<field name="sodra_no" />
+						<field name="company_registry" readonly='1'/>
+						<field name="sodra_no" readonly='1'/>
 						<label for="street" string="Address"/>
 						<div>
 						<field name="street" readonly='1'/>
@@ -83,7 +83,9 @@
 						</div>
 						</div>  
 						<field name = "field_8"/>
-						<field name="tarif_id"/>					
+						<field name = "tarif_id"/>
+						<field name = "field_A11" domain="[('parent_rule_id','=',False)]"/>
+						<field name = "field_A12" domain="[('parent_rule_id','=',False)]"/>					
 					</group>
 				</form>
             </field>
