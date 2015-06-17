@@ -109,7 +109,7 @@ class sd5_3_report(report_sxw.rml_parse):
             #print"--------------------------employee_id---",employee_id
 
             obj_payslip=self.pool.get('hr.payslip')
-            valid_payslip=obj_payslip.search(cr,uid,[('state','=','draft'),('date_to','>=',period_start),('date_to','<=',period_stop),('employee_id','in',employee_id),('contract_id','in',valid_contract_ids)],context=None) or []
+            valid_payslip=obj_payslip.search(cr,uid,[('state','=','done'),('date_to','>=',period_start),('date_to','<=',period_stop),('employee_id','in',employee_id),('contract_id','in',valid_contract_ids)],context=None) or []
             #print "\n\n\n\n\n===============payslip========",valid_payslip
             no_of_pages=int(math.ceil(len(valid_payslip)/9.0)) if valid_payslip else 0
 
@@ -169,7 +169,7 @@ class sd5_3_report(report_sxw.rml_parse):
             #print"--------------------------employee_id---",employee_id
 
             obj_payslip=self.pool.get('hr.payslip')
-            valid_payslip=obj_payslip.search(cr,uid,[('state','=','draft'),('date_to','>=',period_start),('date_to','<=',period_stop),('employee_id','in',employee_id),('contract_id','in',valid_contract_ids)],context=None) or []
+            valid_payslip=obj_payslip.search(cr,uid,[('state','=','done'),('date_to','>=',period_start),('date_to','<=',period_stop),('employee_id','in',employee_id),('contract_id','in',valid_contract_ids)],context=None) or []
             #print "\n\n\n\n\n===============payslip========",valid_payslip
             no_of_pages=int(math.ceil(len(valid_payslip)/4.0)) if valid_payslip else 0
 
